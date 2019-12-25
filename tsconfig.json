@@ -15,7 +15,11 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@eneity/*": ["src/entity/*"]
+    }
   },
   "exclude": [
     "node_modules",
@@ -28,5 +32,5 @@
     "src/setupTests.ts",
     "tslint:latest",
     "tslint-config-prettier"
-  ]
+  ],
 }

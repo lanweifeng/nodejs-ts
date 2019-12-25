@@ -1,7 +1,32 @@
+import 'reflect-metadata';
+import Koa from 'koa';
 import config from 'config';
-import app from './app';
+import { useKoaServer, useContainer } from 'routing-controllers';
+import { createConnection } from 'typeorm';
+import { Container } from 'typedi';
 
-app.listen(config.get<number>('Customer.serverPort'), () => {
-  // eslint-disable-next-line no-console
-  console.log(`${new Date()}服务在http://localhost:${config.get<number>('Customer.serverPort')}启动成功`);
-});
+// 设置端口的环境变量
+process.env.EOS_NODE_PORT = process.env.PORT || config.get<number>('Customer.serverPort').toString();
+
+// 源码编译目录
+const buildDir = config.get<string>('Customer.compiledDir');
+
+// Koa实例化
+const koa = new Koa();
+
+createConnection(config.get('Customer.ormConfig')).then(async () => {
+  console.log('db is connected!');
+  // 对依赖注入容器进行使用,一种声明，防止报错,在useKoaServer之前声明
+  useContainer(Container);
+  const app = useKoaServer(koa, {
+    controllers: [`${process.cwd()}/${buildDir}/controllers/**/*{.js,.ts}`],
+    interceptors: [`${process.cwd()}/${buildDir}/service/**/*{.service.js,.service.ts}`],
+    // middlewares,
+    classTransformer: true,
+    // defaultErrorHandler: false
+  });
+  app.listen(config.get<number>('Customer.serverPort'), () => {
+    // eslint-disable-next-line no-console
+    console.log(`${new Date()}服务在http://localhost:${config.get<number>('Customer.serverPort')}启动成功`);
+  });
+}).catch((error) => console.log('TypeORM connection error: ', error));
