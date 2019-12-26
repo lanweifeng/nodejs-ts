@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import 'tsconfig-paths/register';
 import Koa from 'koa';
 import config from 'config';
 import { useKoaServer, useContainer } from 'routing-controllers';
