@@ -1,14 +1,16 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import {
+  Entity, PrimaryColumn, Column, CreateDateColumn,
+} from 'typeorm';
 
 @Entity('user')
-export class UserEntity {
+export class User {
   @PrimaryColumn({
     comment: '用户登录名（英文和数字）',
     unique: true,
     length: 20,
     nullable: false,
   })
-  userId!: number;
+  userId!: string;
 
   @Column({
     comment: '用户名',
@@ -30,7 +32,7 @@ export class UserEntity {
   })
   roleId!: number;
 
-  @Column('datetime', {
+  @CreateDateColumn({
     comment: '创建时间',
   })
   createTime!: string;

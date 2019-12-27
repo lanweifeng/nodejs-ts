@@ -19,7 +19,9 @@
     "baseUrl": ".",
     "paths": {
       "@entity/*": ["src/entity/*"],
-      "@service/*": ["src/service/*"]
+      "@service/*": ["src/service/*"],
+      "@vo/*": ["src/vo/*"],
+      "@exception": ["src/exception"]
     }
   },
   "exclude": [

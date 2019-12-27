@@ -13,13 +13,13 @@ const path = require('path');
 const ContainerManager = require('typedi');*/
 
 // 设置端口的环境变量
-process.env.EOS_NODE_PORT = process.env.PORT || config.get<number>('Customer.serverPort').toString();
+process.env.EOS_NODE_PORT = process.env.PORT || config.get<number>('serverPort').toString();
 
 /* //中间件配置
 const middlewaresConfig = conf.middlewares;*/
 
 // 源码编译目录
-const buildDir = config.get<string>('Customer.compiledDir');
+const buildDir = config.get<string>('compiledDir');
 
 // 依赖注入的文件配置
 // const { dependencyInjectConf } = conf;
@@ -47,7 +47,6 @@ const koa = new Koa();
 // UseServer.useContainer(ContainerManager.Container);
 const app = useKoaServer(koa, {
   controllers: [`${process.cwd()}/${buildDir}/controllers/**/*.js`],
-  // middlewares,
   classTransformer: true,
   // defaultErrorHandler: false
 });

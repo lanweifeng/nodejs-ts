@@ -58,6 +58,9 @@
       "always"
     ],
     "class-methods-use-this": "off",
-    "no-return-await": "off"
+    "no-return-await": "off",
+    "no-useless-constructor": "off",
+    "no-param-reassign": "warn",
+    "max-len": "warn"
   }
 }
