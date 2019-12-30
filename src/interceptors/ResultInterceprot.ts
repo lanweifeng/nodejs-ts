@@ -1,5 +1,5 @@
 import { Interceptor, InterceptorInterface, Action } from 'routing-controllers';
-import { Result } from '@entity/Result';
+import { Result } from '@vo/Result';
 
 @Interceptor()
 export class ResultInterceprot implements InterceptorInterface {

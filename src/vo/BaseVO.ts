@@ -1,4 +1,4 @@
-export default class BaseVO<T> {
+export class BaseVO<T> {
   /**
    * 信息
    */
@@ -13,4 +13,5 @@ export default class BaseVO<T> {
    * 返回状态码
    */
   code!: number;
+
 }

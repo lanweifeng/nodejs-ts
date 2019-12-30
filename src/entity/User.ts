@@ -35,7 +35,7 @@ export class User {
   @CreateDateColumn({
     comment: '创建时间',
   })
-  createTime!: string;
+  createTime!: Date;
 
   @Column({
     type: 'enum',

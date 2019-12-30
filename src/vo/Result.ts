@@ -1,5 +1,5 @@
-import { BaseException } from '@exception';
-import { ResultCode } from './ResultCode';
+import { BaseException } from '@exception/BaseException';
+import { ResultCode } from '@entity/ResultCode';
 import { StatusCode } from '../enum/StatusCode';
 
 export class Result {
@@ -19,7 +19,7 @@ export class Result {
     const result = new Result();
     result.code = StatusCode.SUCCESS.code;
     result.msg = StatusCode.SUCCESS.msg;
-    result.data = data || null;
+    result.data = data || '';
     return result;
   }
 

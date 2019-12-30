@@ -1,7 +1,7 @@
 import { Service } from 'typedi';
 import { getRepository } from 'typeorm';
 import { User } from '@entity/User';
-import { UserException } from '@exception';
+import { UserException } from '@exception/UserException';
 import { UserService } from '../UserService';
 
 @Service('userService')
@@ -22,12 +22,13 @@ export default class UserServiceImpl implements UserService {
    */
   async add(user: User) {
     const find = await this.userRepository.findOne({ userId: user.userId });
+    console.log('find', find);
+
     if (find) {
       throw new UserException(`插入失败,${user.userId}已存在!`);
     }
-
-    console.log(find)
     try {
+      console.log('uuu', user)
       return await this.userRepository.insert(user);
     } catch (e) {
       throw new UserException('插入失败!');

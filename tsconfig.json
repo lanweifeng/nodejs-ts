@@ -10,7 +10,7 @@
     "emitDecoratorMetadata": true,
     "sourceMap": true,
     "outDir": "./dist",
-    "isolatedModules": true,
+    "isolatedModules": false,
     "strict": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
@@ -21,7 +21,8 @@
       "@entity/*": ["src/entity/*"],
       "@service/*": ["src/service/*"],
       "@vo/*": ["src/vo/*"],
-      "@exception": ["src/exception"]
+      "@exception/*": ["src/exception/*"],
+      "@dto/*": ["src/dto/*"],
     }
   },
   "exclude": [
