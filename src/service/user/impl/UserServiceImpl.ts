@@ -22,8 +22,6 @@ export default class UserServiceImpl implements UserService {
    */
   async add(user: User) {
     const find = await this.userRepository.findOne({ userId: user.userId });
-    console.log('find', find);
-
     if (find) {
       throw new UserException(`插入失败,${user.userId}已存在!`);
     }

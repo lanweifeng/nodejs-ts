@@ -5,6 +5,8 @@ import config from 'config';
 import { useKoaServer, useContainer } from 'routing-controllers';
 import { createConnection } from 'typeorm';
 import { Container } from 'typedi';
+import { Logger } from '@utils';
+
 
 // 设置端口的环境变量
 process.env.EOS_NODE_PORT = process.env.PORT || config.get<number>('serverPort').toString();
@@ -19,6 +21,9 @@ createConnection(config.get('ormConfig')).then(async () => {
   console.log('db is connected!');
   // 对依赖注入容器进行使用,一种声明，防止报错,在useKoaServer之前声明
   useContainer(Container);
+
+  // koa.use(Logger.getLogger);
+
   const app = useKoaServer(koa, {
     controllers: [`${process.cwd()}/${buildDir}/controllers/**/*{.js,.ts}`],
     interceptors: [`${process.cwd()}/${buildDir}/service/**/impl/*{.js,.ts}`, `${process.cwd()}/${buildDir}/interceptors/**/*{.js,.ts}`],

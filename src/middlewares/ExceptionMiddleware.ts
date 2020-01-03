@@ -11,7 +11,7 @@ import { ValidationError } from 'class-validator';
  * @class
  * @implements {KoaMiddlewareInterface}
  */
-@Middleware({ type: 'before', priority: 0 })
+@Middleware({ type: 'before', priority: 2 })
 export class ErrorHandlerMiddleware implements KoaMiddlewareInterface {
   public async use(@Ctx() context: Context, next: (err?: any) => Promise<any>): Promise<any> {
     return await next().catch((e: Error) => {

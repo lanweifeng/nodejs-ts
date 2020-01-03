@@ -1,3 +1,5 @@
+import { LoggingEvent } from 'koa-log4';
+
 export default {
   // 源码编译目录
   compiledDir: 'dist',
@@ -39,6 +41,75 @@ export default {
       entitiesDir: 'src/entity',
       migrationsDir: 'src/migration',
       subscribersDir: 'src/subscriber',
+    },
+  },
+
+  // 日志
+  log4js: {
+    appenders:
+      {
+        console: {
+          type: 'console',
+        },
+        /* errorLogger: {
+          type: 'dateFile',
+          filename: 'error',
+          pattern: '-yyyy-MM-dd-hh.log',
+          alwaysIncludePattern: true,
+          encoding: 'utf-8',
+          maxLogSize: 1000,
+          numBackups: 3,
+          path: `${process.cwd()}/logs/error`,
+          layout: {
+            type: 'basic',
+          },
+        },*/
+        http: {
+          type: 'console',
+          layout: {
+            type: 'pattern',
+            pattern: '%d %X{params}',
+          },
+          /* type: 'dateFile',
+          filename: 'http',
+          pattern: '-yyyy-MM-dd-hh.log',
+          alwaysIncludePattern: true,
+          encoding: 'utf-8',
+          maxLogSize: 1000,
+          numBackups: 3,
+          path: `${process.cwd()}/logs/http`,
+          layout: {
+            type: 'basic',
+          },*/
+        },
+        /* resLogger: {
+          type: 'dateFile',
+          filename: responseLogPath,
+          pattern: '-yyyy-MM-dd-hh.log',
+          alwaysIncludePattern: true,
+          encoding: 'utf-8',
+          maxLogSize: 1000,
+          numBackups: 3,
+          path: responsePath,
+          layout: {
+            type: 'basic',
+          },
+        },*/
+      },
+    // 供外部调用的名称和对应设置定义
+    categories: {
+      default: {
+        appenders: ['console'], level: 'all',
+      },
+      /* resLogger: {
+        appenders: ['resLogger'], level: 'info',
+      },*/
+      /* errorLogger: {
+        appenders: ['errorLogger'], level: 'error',
+      },*/
+      http: {
+        appenders: ['http'], level: 'all',
+      },
     },
   },
 
