@@ -1,10 +1,9 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class UserDto {
+export class UserVo {
   /**
    * 用户登录名（英文和数字）
    */
-  @IsString()
   userId!: string;
 
   /**

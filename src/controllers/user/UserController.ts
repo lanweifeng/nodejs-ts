@@ -2,7 +2,8 @@ import {
   JsonController, Get, QueryParam, Post, Body, Param, BodyParam,
 } from 'routing-controllers';
 import { Inject } from 'typedi';
-import { UserDto } from '@dto/user/UserDto';
+import { UserVo } from '@vo/user/UserVo';
+import { User } from '@entity/User';
 import { UserService } from '@service/user/UserService';
 
 @JsonController('/user')
@@ -11,7 +12,7 @@ export default class UserController {
   private readonly userService!: UserService
 
   @Post('/add')
-  async add(@BodyParam('user') user: UserDto) {
+  async add(@BodyParam('user') user: UserVo) {
     await this.userService.add(user);
   }
 
@@ -21,7 +22,7 @@ export default class UserController {
   }
 
   @Post('/update')
-  update(@Body() user: UserDto) {
+  update(@Body() user: UserVo) {
     return this.userService.updateUser(user);
   }
 

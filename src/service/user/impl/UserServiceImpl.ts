@@ -1,6 +1,7 @@
 import { Service } from 'typedi';
 import { getRepository } from 'typeorm';
 import { User } from '@entity/User';
+import { UserVo } from '@vo/user/UserVo';
 import { UserException } from '@exception/UserException';
 import { UserService } from '../UserService';
 
@@ -20,16 +21,20 @@ export default class UserServiceImpl implements UserService {
    * 新增用户
    * @param user
    */
-  async add(user: User) {
-    const find = await this.userRepository.findOne({ userId: user.userId });
+  async add(userVo: UserVo) {
+    const find = await this.userRepository.findOne({ userId: userVo.userId });
     if (find) {
-      throw new UserException(`插入失败,${user.userId}已存在!`);
+      throw new UserException(`用户插入失败,userId: ${userVo.userId}已存在!`);
     }
+
+    const user = new User();
+    Object.assign(user, userVo);
+    user.hashPassword();
+
     try {
-      console.log('uuu', user)
       return await this.userRepository.insert(user);
     } catch (e) {
-      throw new UserException('插入失败!');
+      throw new UserException('用户插入失败!', 400, e.stack);
     }
   }
 
@@ -37,7 +42,7 @@ export default class UserServiceImpl implements UserService {
    * 修改用户
    * @param user
    */
-  async updateUser(user: User) {
+  async updateUser(user: UserVo) {
     try {
       return await this.userRepository.update(user.userId, user);
     } catch (e) {

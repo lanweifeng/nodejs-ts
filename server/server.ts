@@ -22,7 +22,7 @@ createConnection(config.get('ormConfig')).then(async () => {
   // 对依赖注入容器进行使用,一种声明，防止报错,在useKoaServer之前声明
   useContainer(Container);
 
-  // koa.use(Logger.getLogger);
+  koa.use(Logger.httpKoaLogger);
 
   const app = useKoaServer(koa, {
     controllers: [`${process.cwd()}/${buildDir}/controllers/**/*{.js,.ts}`],

@@ -2,6 +2,8 @@ import {
   Entity, PrimaryColumn, Column, CreateDateColumn,
 } from 'typeorm';
 
+import bcryptjs from 'bcryptjs';
+
 @Entity('user')
 export class User {
   @PrimaryColumn({
@@ -44,4 +46,12 @@ export class User {
     default: '0',
   })
   status!: '0' | '1';
+
+  hashPassword() {
+    this.passWord = bcryptjs.hashSync(this.passWord);
+  }
+
+  checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
+    return bcryptjs.compareSync(unencryptedPassword, this.passWord);
+  }
 }

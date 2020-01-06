@@ -27,7 +27,7 @@ export class Result {
     const result = new Result();
     result.code = error.getCode();
     result.msg = error.getMsg();
-    result.data = null;
+    result.data = '';
     return result;
   }
 }

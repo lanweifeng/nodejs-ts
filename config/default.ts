@@ -7,6 +7,9 @@ export default {
   // 服务端口
   serverPort: 9696,
 
+  // jwt秘钥
+  jwtSecret: 'chaintor',
+
   // 数据库orm配置 https://typeorm.io/#/connection-options
   ormConfig: {
     type: 'mysql',
@@ -27,7 +30,7 @@ export default {
      * info - 记录内部 orm 信息性消息。
      * log - 记录内部 orm 日志消息。
      */
-    logging: ['error'],
+    logging: ['query'],
     entities: [
       `${process.cwd()}/src/entity/**/*{.js,.ts}`,
     ],
@@ -51,7 +54,7 @@ export default {
         console: {
           type: 'console',
         },
-        /* errorLogger: {
+        error: {
           type: 'dateFile',
           filename: 'error',
           pattern: '-yyyy-MM-dd-hh.log',
@@ -60,17 +63,9 @@ export default {
           maxLogSize: 1000,
           numBackups: 3,
           path: `${process.cwd()}/logs/error`,
-          layout: {
-            type: 'basic',
-          },
-        },*/
+        },
         http: {
-          type: 'console',
-          layout: {
-            type: 'pattern',
-            pattern: '%d %X{params}',
-          },
-          /* type: 'dateFile',
+          type: 'dateFile',
           filename: 'http',
           pattern: '-yyyy-MM-dd-hh.log',
           alwaysIncludePattern: true,
@@ -79,34 +74,19 @@ export default {
           numBackups: 3,
           path: `${process.cwd()}/logs/http`,
           layout: {
-            type: 'basic',
-          },*/
-        },
-        /* resLogger: {
-          type: 'dateFile',
-          filename: responseLogPath,
-          pattern: '-yyyy-MM-dd-hh.log',
-          alwaysIncludePattern: true,
-          encoding: 'utf-8',
-          maxLogSize: 1000,
-          numBackups: 3,
-          path: responsePath,
-          layout: {
-            type: 'basic',
+            type: 'pattern',
+            pattern: '%[[%d{yyyy-MM-dd hh:mm:ss}] [%p] [%X{ip}] [%X{protocol} %X{method} %X{url}] 请求参数:%n%X{params}%n%]',
           },
-        },*/
+        },
       },
     // 供外部调用的名称和对应设置定义
     categories: {
       default: {
-        appenders: ['console'], level: 'all',
+        appenders: ['console'], level: 'off',
       },
-      /* resLogger: {
-        appenders: ['resLogger'], level: 'info',
-      },*/
-      /* errorLogger: {
-        appenders: ['errorLogger'], level: 'error',
-      },*/
+      error: {
+        appenders: ['error'], level: 'error',
+      },
       http: {
         appenders: ['http'], level: 'all',
       },
