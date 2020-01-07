@@ -1,4 +1,9 @@
 
+export interface ErrorInfo {
+  code: number;
+  msg: string;
+}
+
 export class BaseException extends Error {
   private code = 500;
 
@@ -6,11 +11,11 @@ export class BaseException extends Error {
 
   private e!: Error;
 
-  constructor(msg: string, code?: number, e?: Error) {
-    super(msg);
-    this.msg = msg;
-    if (code) {
-      this.code = code;
+  constructor(errInfo: ErrorInfo, e?: Error) {
+    super(errInfo.msg);
+    this.msg = errInfo.msg;
+    if (errInfo.code) {
+      this.code = errInfo.code;
     }
     if (e !== undefined) {
       this.e = e;
@@ -40,6 +45,4 @@ export class BaseException extends Error {
   public getE(): Error {
     return this.e;
   }
-
-
 }

@@ -23,7 +23,8 @@
       "@vo/*": ["src/vo/*"],
       "@exception/*": ["src/exception/*"],
       "@dto/*": ["src/dto/*"],
-      "@utils": ["src/utils"]
+      "@utils": ["src/utils"],
+      "@enum/*": ["src/enum/*"]
     }
   },
   "exclude": [

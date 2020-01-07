@@ -1,6 +1,6 @@
 import { BaseException, ErrorInfo } from './BaseException';
 
-export class UserException extends BaseException {
+export class TokenException extends BaseException {
   constructor(errorInfo: ErrorInfo, e?: Error) {
     super(errorInfo, e);
   }

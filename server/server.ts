@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import 'tsconfig-paths/register';
 import Koa from 'koa';
 import config from 'config';
-import { useKoaServer, useContainer } from 'routing-controllers';
+import { useKoaServer, useContainer, Action } from 'routing-controllers';
 import { createConnection } from 'typeorm';
 import { Container } from 'typedi';
 import { Logger } from '@utils';

@@ -7,8 +7,10 @@ export default {
   // 服务端口
   serverPort: 9696,
 
-  // jwt秘钥
-  jwtSecret: 'chaintor',
+  jwtConfig: {
+    // jwt秘钥
+    secret: 'chaintor',
+  },
 
   // 数据库orm配置 https://typeorm.io/#/connection-options
   ormConfig: {
@@ -21,7 +23,7 @@ export default {
     // 指示是否在每次应用程序启动时自动创建数据库架构。 请注意此选项，不要在生产环境中使用它，否则将丢失所有生产数据。
     synchronize: true,
     // 每次建立连接时删除架构。请注意此选项，不要在生产环境中使用它，否则将丢失所有生产数据。
-    dropSchema: false,
+    dropSchema: true,
     /**
      * query - 记录所有查询。
      * error - 记录所有失败的查询和错误。

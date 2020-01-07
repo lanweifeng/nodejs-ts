@@ -7,10 +7,10 @@ import { Logger } from '@utils';
  * @class
  * @implements {KoaMiddlewareInterface}
  */
-@Middleware({ type: 'before', priority: 0 })
+@Middleware({ type: 'before', priority: 1000 })
 export class LogHttpMiddleware implements KoaMiddlewareInterface {
   async use(ctx: Context, next: (err?: any) => Promise<any>): Promise<any> {
     Logger.http(ctx);
-    return next();
+    return await next();
   }
 }

@@ -4,7 +4,9 @@ import { User } from '@entity/User';
 import { BaseException } from '@exception/BaseException';
 import * as jwt from 'jsonwebtoken';
 import config from 'config';
-import { PermissionService, LoginUser } from '../PermissionService';
+import { UserVo } from '@vo/user/UserVo';
+import { StatusCode } from '@enum/StatusCode';
+import { PermissionService } from '../PermissionService';
 
 @Service('permissionService')
 export default class PermissionServiceImpl implements PermissionService {
@@ -14,22 +16,23 @@ export default class PermissionServiceImpl implements PermissionService {
    * 登录
    * @param user
    */
-  async login(user: LoginUser): Promise<any> {
+  async login(user: UserVo): Promise<any> {
     let loginUser: User;
+
     try {
-      loginUser = await this.userRepository.findOneOrFail(user);
+      loginUser = await this.userRepository.findOneOrFail({ userId: user.userId });
     } catch (e) {
-      throw new BaseException('用户名或者密码错误');
+      throw new BaseException(StatusCode.LOGIN_ERROR);
     }
 
     if (!loginUser.checkIfUnencryptedPasswordIsValid(user.passWord)) {
-      throw new BaseException('用户名或者密码错误');
+      throw new BaseException(StatusCode.LOGIN_ERROR);
     }
 
     // 注册token
     const token = jwt.sign(
       { userId: loginUser.userId, userName: loginUser.userName },
-      config.get<string>('jwtSecret'),
+      config.get<string>('jwtConfig.secret'),
       { expiresIn: '1h' },
     );
 

@@ -269,7 +269,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `userid` varchar(20) NOT NULL COMMENT '用户登陆名 \n英文数字唯一',
   `username` varchar(45) NOT NULL COMMENT '用户名 中文',
-  `password` varchar(45) NOT NULL,
+  `password` varchar(80) NOT NULL,
   `roleid` int(11) NOT NULL,
   `createtime` varchar(45) DEFAULT NULL COMMENT '创建时间 \n存储时间格式 yyyyMMdd hh:mm:ss.sss',
   `status` char(1) NOT NULL COMMENT '用户状态\n0正常\n1注销',
