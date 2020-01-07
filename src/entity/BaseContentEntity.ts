@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 export class BaseContentEntity {
   @Column({
@@ -22,7 +22,7 @@ export class BaseContentEntity {
   })
   updatedBy!: string;
 
-  @CreateDateColumn({
+  @UpdateDateColumn({
     comment: '更新时间',
     type: 'datetime',
     name: 'update_time',
@@ -30,9 +30,10 @@ export class BaseContentEntity {
   updateTime!: Date;
 
   @Column({
-    comment: '是否删除',
+    comment: '是否删除,0删除,1正常',
     name: 'del_flag',
     length: 2,
+    default: '1',
   })
   delFlag!: string
 }

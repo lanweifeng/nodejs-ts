@@ -42,7 +42,9 @@ export default class UserServiceImpl implements UserService {
    * 修改用户
    * @param user
    */
-  async updateUser(user: UserVo) {
+  async updateUser(userVo: UserVo) {
+    const user = new User();
+    Object.assign(user, userVo);
     try {
       return await this.userRepository.update(user.userId, user);
     } catch (e) {

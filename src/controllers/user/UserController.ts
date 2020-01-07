@@ -3,7 +3,6 @@ import {
 } from 'routing-controllers';
 import { Inject } from 'typedi';
 import { UserVo } from '@vo/user/UserVo';
-import { User } from '@entity/User';
 import { UserService } from '@service/user/UserService';
 
 @JsonController('/user')

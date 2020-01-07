@@ -16,7 +16,6 @@ const buildDir = config.get<string>('compiledDir');
 
 // Koa实例化
 const koa = new Koa();
-
 createConnection(config.get('ormConfig')).then(async () => {
   console.log('db is connected!');
   // 对依赖注入容器进行使用,一种声明，防止报错,在useKoaServer之前声明

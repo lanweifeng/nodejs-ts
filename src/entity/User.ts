@@ -1,5 +1,5 @@
 import {
-  Entity, PrimaryColumn, Column, CreateDateColumn,
+  Entity, PrimaryColumn, Column,
 } from 'typeorm';
 
 import bcryptjs from 'bcryptjs';
@@ -35,8 +35,8 @@ export class User extends BaseContentEntity {
 
   @Column('int', {
     comment: '角色ID',
-    nullable: false,
     name: 'role_id',
+    default: -1,
   })
   roleId!: number;
 

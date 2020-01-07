@@ -18,7 +18,6 @@ export class LogHttpMiddleware implements KoaMiddlewareInterface {
     try {
       await verifyJwt(ctx, next);
     } catch (e) {
-      console.log(e)
       if (e.status === 401) {
         throw new TokenException(StatusCode.TOKEN_ERROR, e);
       } else {
