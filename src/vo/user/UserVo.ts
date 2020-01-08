@@ -1,9 +1,10 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import {IsNotEmpty, IsNumber, IsString} from 'class-validator';
 
 export class UserVo {
   /**
    * 用户登录名（英文和数字）
    */
+  @IsString()
   userId!: string;
 
   /**
@@ -21,6 +22,7 @@ export class UserVo {
   /**
    * 角色ID
    */
+  @IsNumber()
   roleId!: number;
 
   /**

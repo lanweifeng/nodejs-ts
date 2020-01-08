@@ -60,9 +60,29 @@ export class StatusCode {
     msg: '用户插入失败，用户*已存在!',
   }
 
+  static USER_INSERT_NULL_OF_ROLE_ID = {
+    code: '002203',
+    msg: '用户新增失败，roleId不能为空!',
+  }
+
+  static USER_INSERT_NULL_OF_USER_ID = {
+    code: '002204',
+    msg: '用户插入失败，userId不能为空!',
+  }
+
+  static USER_INSERT_NULL_OF_USER_NAME = {
+    code: '002205',
+    msg: '用户新增失败，userName不能为空!',
+  }
+
   static USER_UPDATE_ERROR = {
     code: '002301',
     msg: '用户*修改失败!',
+  }
+
+  static USER_UPDATE_NOT_USER = {
+    code: '002302',
+    msg: '用户*不存在，修改失败!',
   }
 
   static USER_DELETE_ERROR = {
@@ -79,7 +99,7 @@ export class StatusCode {
 
   static ROLE_INSERT_ERROR = {
     code: '003201',
-    msg: '角色*插入失败!',
+    msg: '角色*新增失败!',
   }
 
   static ROLE_INSERT_REPEAT = {
@@ -97,6 +117,13 @@ export class StatusCode {
     msg: '角色*删除失败!',
   }
   /* ***************************角色部分结束**************************************/
+
+  /* ***************************菜单部分开始**************************************/
+  static MENU_INSERT_ERROR = {
+    code: '004201',
+    msg: '菜单*新增失败!',
+  }
+  /* ***************************菜单部分结束**************************************/
 
   static appendMsg = (info: {code: string; msg: string}, arg?: any) => {
     const temp = { ...info };

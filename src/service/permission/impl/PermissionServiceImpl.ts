@@ -20,7 +20,7 @@ export default class PermissionServiceImpl implements PermissionService {
     let loginUser: User;
 
     try {
-      loginUser = await this.userRepository.findOneOrFail({ userId: user.userId });
+      loginUser = await this.userRepository.findOneOrFail({ userId: user.userId, delFlag: '1' });
     } catch (e) {
       throw new BaseException(StatusCode.LOGIN_ERROR);
     }

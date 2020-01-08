@@ -4,6 +4,7 @@ import { User } from '@entity/User';
 import { UserVo } from '@vo/user/UserVo';
 import { UserException } from '@exception/UserException';
 import { StatusCode } from '@enum/StatusCode';
+import { BaseException } from '@exception/BaseException';
 import { UserService } from '../UserService';
 
 @Service('userService')
@@ -15,7 +16,12 @@ export default class UserServiceImpl implements UserService {
    * @param userId
    */
   async getUser(userId?: string) {
-    return userId ? await this.userRepository.find({ userId }) : await this.userRepository.find();
+    const users = userId ? await this.userRepository.find({ userId, delFlag: '1' }) : await this.userRepository.find({ delFlag: '1' });
+    users.forEach((user) => {
+      delete user.passWord;
+      delete user.delFlag;
+    });
+    return users;
   }
 
   /**
@@ -46,7 +52,13 @@ export default class UserServiceImpl implements UserService {
     const user = new User();
     Object.assign(user, userVo);
     try {
-      return await this.userRepository.update(user.userId, user);
+      await this.userRepository.findOneOrFail({ userId: user.userId, delFlag: '1' });
+    } catch (e) {
+      throw new BaseException(StatusCode.appendMsg(StatusCode.USER_UPDATE_NOT_USER, userVo.userId));
+    }
+
+    try {
+      await this.userRepository.update(user.userId, user);
     } catch (e) {
       throw new UserException(StatusCode.USER_UPDATE_ERROR, e);
     }
@@ -56,9 +68,9 @@ export default class UserServiceImpl implements UserService {
    * 根据userId删除用户
    * @param userId
    */
-  async removeUser(userId: string | string[]): Promise<any> {
+  async removeUser(userId: string[]): Promise<any> {
     try {
-      return await this.userRepository.delete(userId);
+      await this.userRepository.update(userId, { delFlag: '0' });
     } catch (e) {
       throw new UserException(StatusCode.USER_DELETE_ERROR, e);
     }

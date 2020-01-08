@@ -1,5 +1,5 @@
 import {
-  Entity, PrimaryColumn, Column, PrimaryGeneratedColumn
+  Entity, PrimaryColumn, Column, PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { BaseContentEntity } from './BaseContentEntity';

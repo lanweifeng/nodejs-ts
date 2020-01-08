@@ -6,7 +6,7 @@ import { BaseContentEntity } from './BaseContentEntity';
 
 
 @Entity('log')
-export class User extends BaseContentEntity {
+export class Log extends BaseContentEntity {
   @PrimaryGeneratedColumn({
     comment: 'id 自增',
     name: 'log_id',

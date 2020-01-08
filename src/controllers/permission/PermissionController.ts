@@ -11,8 +11,9 @@ export default class PermissionController {
   private readonly PermissionService!: PermissionService
 
   @Post('/login')
-  async login(@Body() user: UserVo) {
-    console.log('user', user)
+  async login(@Body() user: UserVo,
+              @BodyParam('userId', { required: true }) userId: string,
+              @BodyParam('passWord', { required: true }) passWord: string) {
     return await this.PermissionService.login(user);
   }
 
