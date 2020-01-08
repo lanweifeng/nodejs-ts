@@ -13,7 +13,7 @@ export interface RoleService {
    * 根据角色ID获取角色信息，不填查所有
    * @param roleId
    */
-  getRoleByRoleId(roleId: string): Promise<any>;
+  getRoleByRoleId(roleId: number): Promise<any>;
 
   /**
    * 修改角色信息

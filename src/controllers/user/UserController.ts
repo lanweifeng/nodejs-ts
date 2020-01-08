@@ -11,7 +11,7 @@ export default class UserController {
   private readonly userService!: UserService
 
   @Post('/add')
-  async add(@BodyParam('user') user: UserVo) {
+  async add(@BodyParam('user', { required: true }) user: UserVo) {
     await this.userService.add(user);
   }
 
@@ -21,7 +21,7 @@ export default class UserController {
   }
 
   @Post('/update')
-  update(@Body() user: UserVo) {
+  update(@Body({ required: true }) user: UserVo, @BodyParam('userId', { required: true }) userId: string) {
     return this.userService.updateUser(user);
   }
 

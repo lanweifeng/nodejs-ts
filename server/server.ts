@@ -29,6 +29,7 @@ createConnection(config.get('ormConfig')).then(async () => {
     middlewares: [`${process.cwd()}/${buildDir}/middlewares/**/*{.js,.ts}`],
     classTransformer: true,
     defaultErrorHandler: false,
+    validation: { skipMissingProperties: true },
   });
 
   app.listen(config.get<number>('serverPort'), () => {

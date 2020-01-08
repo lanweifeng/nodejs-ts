@@ -19,13 +19,20 @@ export class ErrorHandlerMiddleware implements KoaMiddlewareInterface {
     return await next().catch((e: Error) => {
       Logger.error(e, context);
       if (e instanceof BaseException) {
+        e.setMsg(e.getMsg().replace('*', ''));
         context.response.body = Result.fail(e);
       } else if (e instanceof BadRequestError) {
         const badRequestError = e as BadRequestError & {errors: ValidationError[]};
         const badRequestResult = new Result();
         badRequestResult.code = StatusCode.PARAMS_ERROR.code;
         badRequestResult.data = {};
-        badRequestResult.msg = StatusCode.PARAMS_ERROR.msg + badRequestError.errors.map((paramError) => Object.keys(paramError.constraints).map((condition) => paramError.constraints[condition]).join(', ')).join(', ');
+        let msg: string;
+        if (badRequestError.name === 'ParamRequiredError') {
+          msg = badRequestError.message;
+        } else {
+          msg = badRequestError.errors.map((paramError) => Object.keys(paramError.constraints).map((condition) => paramError.constraints[condition]).join(', ')).join(', ');
+        }
+        badRequestResult.msg = StatusCode.PARAMS_ERROR.msg + msg;
         context.response.body = badRequestResult;
       } else {
         console.log('error', e);

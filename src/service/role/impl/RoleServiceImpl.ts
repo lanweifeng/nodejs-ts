@@ -1,5 +1,7 @@
 import { Service } from 'typedi';
-import { getRepository, InsertResult, UpdateResult, DeleteResult } from 'typeorm';
+import {
+  getRepository, InsertResult, UpdateResult, DeleteResult,
+} from 'typeorm';
 import { Role } from '@entity/Role';
 import { BaseException } from '@exception/BaseException';
 import { StatusCode } from '@enum/StatusCode';
@@ -13,7 +15,7 @@ export default class RoleServiceImpl implements RoleService {
   async addRole(roleVo: RoleVo): Promise<InsertResult> {
     const find = await this.roleRepository.findOne({ roleName: roleVo.roleName });
     if (find) {
-      throw new BaseException(StatusCode.ROLE_INSERT_REPEAT);
+      throw new BaseException(StatusCode.appendMsg(StatusCode.ROLE_INSERT_REPEAT, roleVo.roleName));
     }
 
     const role = new Role();
@@ -25,8 +27,8 @@ export default class RoleServiceImpl implements RoleService {
     }
   }
 
-  async getRoleByRoleId(roleId: string): Promise<any> {
-    return roleId ? await this.roleRepository.find({ roleId: parseInt(roleId, 0) }) : await this.roleRepository.find();
+  async getRoleByRoleId(roleId: number): Promise<any> {
+    return roleId ? await this.roleRepository.find({ roleId }) : await this.roleRepository.find();
   }
 
   async updateRole(roleVo: RoleVo): Promise<UpdateResult> {

@@ -16,7 +16,7 @@ export default class RoleController {
   }
 
   @Get('/get')
-  get(@QueryParam('roleId') roleId: string) {
+  get(@QueryParam('roleId') roleId: number) {
     return this.roleService.getRoleByRoleId(roleId);
   }
 

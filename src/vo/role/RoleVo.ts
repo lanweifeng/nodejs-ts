@@ -1,10 +1,11 @@
-import { IsNotEmpty, IsString, IsEmpty } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
 
 export class RoleVo {
   /**
    * 角色ID
    */
-  roleId!: string
+  @IsNumber()
+  roleId!: number
 
   /**
    *  角色名称

@@ -2,7 +2,7 @@ import { BaseException } from '@exception/BaseException';
 import { StatusCode } from '@enum/StatusCode';
 
 export class Result {
-  public code!: number;
+  public code!: string;
 
   public msg!: string;
 

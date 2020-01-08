@@ -25,7 +25,7 @@ export default class UserServiceImpl implements UserService {
   async add(userVo: UserVo) {
     const find = await this.userRepository.findOne({ userId: userVo.userId });
     if (find) {
-      throw new UserException(StatusCode.USER_INSERT_REPEAT);
+      throw new UserException(StatusCode.appendMsg(StatusCode.USER_INSERT_REPEAT, userVo.userId));
     }
 
     const user = new User();

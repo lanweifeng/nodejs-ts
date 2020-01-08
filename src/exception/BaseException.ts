@@ -1,11 +1,11 @@
 
 export interface ErrorInfo {
-  code: number;
+  code: string;
   msg: string;
 }
 
 export class BaseException extends Error {
-  private code = 500;
+  private code = '500';
 
   private msg!: string;
 
@@ -30,11 +30,11 @@ export class BaseException extends Error {
     return this.msg;
   }
 
-  public setCode(code: number): void {
+  public setCode(code: string): void {
     this.code = code;
   }
 
-  public getCode(): number {
+  public getCode(): string {
     return this.code;
   }
 

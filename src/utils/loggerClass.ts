@@ -56,7 +56,12 @@ class LoggerClass {
     this.errorLogger.addContext('errors', e);
     if (e instanceof BadRequestError) {
       const badRequestError = e as BadRequestError & {errors: ValidationError[]};
-      const msg = badRequestError.errors.map((paramError) => Object.keys(paramError.constraints).map((condition) => paramError.constraints[condition]).join(', ')).join(', ');
+      let msg: string;
+      if (badRequestError.name === 'ParamRequiredError') {
+        msg = badRequestError.message;
+      } else {
+        msg = badRequestError.errors.map((paramError) => Object.keys(paramError.constraints).map((condition) => paramError.constraints[condition]).join(', ')).join(', ');
+      }
       this.errorLogger.removeContext('errors');
       this.errorLogger.addContext('errors', `请求参数格式错误: ${msg}`);
       this.errorLogger.error(e.stack);
