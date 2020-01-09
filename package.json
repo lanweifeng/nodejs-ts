@@ -1,10 +1,7 @@
 {
-  "name": "eosbass_node",
+  "name": "nodejs-ts",
   "version": "1.0.0",
   "keywords": [
-    "Chaintor",
-    "EOS",
-    "Bass",
     "Typescript"
   ],
   "description": "",
@@ -15,7 +12,7 @@
     "dev": "cross-env NODE_ENV=dev npm run watch-server",
     "watch-server": "nodemon --watch src/**/* -e ts --exec ts-node ./server/server.ts"
   },
-  "author": "Chaintor",
+  "author": "lanweifeng",
   "license": "ISC",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
